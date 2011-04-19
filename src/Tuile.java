@@ -4,10 +4,14 @@ public class Tuile {
 	/* 
 	 * Indices des côtés et centre:
 	 * 0 : Nord
-	 * 1 : Est
-	 * 2 : Sud
-	 * 3 : Ouest
-	 * 4 : Centre
+	 * 1 : NE
+	 * 2 : Est
+	 * 3 : SE
+	 * 4 : Sud
+	 * 5 : SO
+	 * 6 : Ouest
+	 * 7 : NO
+	 * 8 : Centre
 	 * 
 	 * Types de côtés et centre: 
 	 * 0 : Champ
@@ -88,12 +92,19 @@ public class Tuile {
 		return blason;
 	}
 	
+	//retourne la position du pion sur la tuile
 	public int where_is_pion(){
 		for(int i=0; i<pions.length; i++){
 			if(pions[i]!=null)
 				return i;
 		}
 		return -1;
+	}
+	
+	//retourne la valeur 
+	public int Pion_is_on(){
+		int i = where_is_pion();
+		return this.cotes[i];
 	}
 	
 	public void inserer_pion(int c, Pion p){
