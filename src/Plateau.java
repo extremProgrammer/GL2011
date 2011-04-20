@@ -3,8 +3,8 @@ public class Plateau {
 
 	Tuile [][] plateau;
 	
-	public Plateau(){
-		this.plateau = new Tuile[143][143];
+	public Plateau(int ligne, int colonne){
+		this.plateau = new Tuile[ligne][colonne];
 	}
 	
 	public void imbriquer(Tuile t, int positionX, int positionY){
@@ -58,16 +58,16 @@ public class Plateau {
 		if(!isTuileN(positionX,positionY) && !isTuileS(positionX,positionY) && !isTuileE(positionX,positionY) && !isTuileO(positionX,positionY)){
 			return false;
 		}
-		if(isTuileN(positionX,positionY) && this.plateau[positionX][positionY-1].cotes[2]!=t.cotes[0]){
+		if(isTuileN(positionX,positionY) && this.plateau[positionX][positionY-1].cotes[4]!=t.cotes[0]){
 			return false;
 		}
-		if(isTuileS(positionX,positionY) && this.plateau[positionX][positionY+1].cotes[0]!=t.cotes[2]){
+		if(isTuileS(positionX,positionY) && this.plateau[positionX][positionY+1].cotes[0]!=t.cotes[4]){
 			return false;
 		}
-		if(isTuileE(positionX,positionY) && this.plateau[positionX+1][positionY].cotes[3]!=t.cotes[1]){
+		if(isTuileE(positionX,positionY) && this.plateau[positionX+1][positionY].cotes[6]!=t.cotes[2]){
 			return false;
 		}
-		if(isTuileO(positionX,positionY) && this.plateau[positionX-1][positionY].cotes[1]!=t.cotes[3]){
+		if(isTuileO(positionX,positionY) && this.plateau[positionX-1][positionY].cotes[2]!=t.cotes[6]){
 			return false;
 		}
 		return true;

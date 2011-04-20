@@ -11,7 +11,7 @@ public class Jeu {
 	Joueur [] tab;
 	
 	public Jeu(){
-		this.p = new Plateau();
+		this.p = new Plateau(72, 72);
 	}
 		
 	 static public int readInt(){

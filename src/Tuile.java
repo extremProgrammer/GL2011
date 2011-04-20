@@ -2,7 +2,7 @@
 public class Tuile {
 	
 	/* 
-	 * Indices des côtés et centre:
+	 * Indices des cï¿½tï¿½s et centre:
 	 * 0 : Nord
 	 * 1 : NE
 	 * 2 : Est
@@ -13,7 +13,7 @@ public class Tuile {
 	 * 7 : NO
 	 * 8 : Centre
 	 * 
-	 * Types de côtés et centre: 
+	 * Types de cï¿½tï¿½s et centre: 
 	 * 0 : Champ
 	 * 1 : chemin
 	 * 2 : ville
@@ -27,7 +27,7 @@ public class Tuile {
 	boolean blason;
 	
 	public Tuile(){
-		this.cotes = new int[5];
+		this.cotes = new int[9];
 		this.pions = new Pion[5];
 		for(int i=0; i<5; i++)
 			this.pions[i]=null;
@@ -62,24 +62,26 @@ public class Tuile {
 	
 	//Rotation droite
 	public void rotationDroite(){
-		int [] copie = new int[5];
-		for(int i = 0; i < 4; i++){
+		int [] copie = new int[9];
+		for(int i = 0; i < 9; i++){
 			copie[i] = this.cotes[i];
 		}
-		for(int i = 0; i < 4; i++){
-			this.cotes[(i+1)%4] = copie[i];
+		//Pas besoin de changer le centre
+		for(int i = 0; i < 8; i++){
+			this.cotes[(i+2)%8] = copie[i];
 		}
 	}
 
 	
 	//Rotation gauche
 	public void rotationGauche(){
-		int [] copie = new int[5];
-		for(int i = 0; i < 4; i++){
-		copie[i] = this.cotes[i];
+		int [] copie = new int[9];
+		for(int i = 0; i < 9; i++){
+			copie[i] = this.cotes[i];
 		}
-		for(int i = 0; i < 4; i++){
-		this.cotes[i] = copie[(i+1)%4];
+		//Pas besoin de changer le centre
+		for(int i = 0; i < 8; i++){
+			this.cotes[i] = copie[(i+2)%8];
 		}
 	}
 
