@@ -334,6 +334,7 @@ public class All_Zones_champ_tuile {
 	
 	}
 	
+	//Ajoute les zones de la nouvelle tuile aux zones du plateau déjà existantes
 	public static Vector<Zone_champ_plateau> all_fusions(Plateau p, Vector<Zone_champ_plateau> zones, int id_tuile, int x, int y){
 		Vector<Zone_champ_tuile> v = All_Zones_champ_tuile.getZones_champ_tuile(id_tuile, new Coordonnees(73, 72));
 		
@@ -364,8 +365,7 @@ public class All_Zones_champ_tuile {
 							//Si un indice de indice_voisin correspond à l'opposé d'un indice de indices_new_tuiles, on fusionne
 							for(int l = 0; l < indices_new_tuile.size(); l++){
 								int indice = indices_new_tuile.elementAt(l);
-								if((indice == 0 || indice == 1 || indice == 7) 
-										&& indices_voisin.contains(All_Zones_champ_tuile.getOppositeN(indice))){
+								if(indices_voisin.contains(All_Zones_champ_tuile.getOppositeN(indice))){
 									zones.elementAt(i).fusion(v.elementAt(k));
 									break;
 								}
@@ -473,6 +473,34 @@ public class All_Zones_champ_tuile {
 		}
 		
 		return zones;
+	}
+	
+	public static Vector<Zone_champ_plateau> fusion(Vector<Zone_champ_plateau> v){
+		//on recommence l'opération s'il y a eu un changement
+		boolean change = true;
+		while(change){
+			change = false;
+			
+			label: for(int i = 0; i < v.size(); i++){
+				Zone_champ_plateau zcp1 = v.elementAt(i);
+				for(int j = i+1; j < v.size(); j++){
+					Zone_champ_plateau zcp2 = v.elementAt(j);
+					
+					//S'il existe 2 zone_champ_tuile identiques dans ces 2 zone_champ_plateau, on fusionne
+					if(zcp1.meme_zone_champ_tuile(zcp2)){
+						zcp1.fusion(zcp2);
+						if(zcp2.isPion() == true)
+							zcp1.setPion(true);
+						v.remove(j);
+						change = true;
+						break label;
+					}
+					
+				}
+			}
+		}
+		
+		return v;
 	}
 	
 }

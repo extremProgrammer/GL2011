@@ -27,4 +27,21 @@ public class Zone_champ_tuile{
 		this.indices = indices;
 	}
 	
+	public boolean isEqual(Zone_champ_tuile z){
+		if(!z.getC().isEqual(this.c))
+			return false;
+		
+		Vector<Integer> v = z.getIndices();
+		
+		if(this.indices.size() != v.size())
+			return false;
+		
+		for(int i = 0; i < this.indices.size(); i++){
+			if(!this.indices.contains(v.elementAt(i)))
+				return false;
+		}
+		
+		return true;
+	}
+	
 }

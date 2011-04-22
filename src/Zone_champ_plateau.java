@@ -37,6 +37,45 @@ public class Zone_champ_plateau {
 		this.zones.add(z);
 	}
 	
+	public void fusion(Zone_champ_plateau zcp){
+		
+		//On fusionne les 2 vecteurs en évitant de créer des doublons
+		Vector<Zone_champ_tuile> v = zcp.getZones();
+		for(int i = 0; i < v.size(); i++){
+			if(!this.contient_zone_champ_tuile(v.elementAt(i))){
+				this.zones.add(v.elementAt(i));
+			}
+		}
+		
+	}
+	
+	public boolean contient_zone_champ_tuile(Zone_champ_tuile zct){
+		
+		for(int i = 0; i < this.zones.size(); i++){	
+			if(this.zones.elementAt(i).isEqual(zct)){
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	//Renvoie vrai si 2 Zone_champ_tuile sont identiques dans les Zone_champ_plateau
+	public boolean meme_zone_champ_tuile(Zone_champ_plateau zcp){
+		
+		Vector<Zone_champ_tuile> v = zcp.getZones();
+		
+		for(int i = 0; i < this.zones.size(); i++){
+			for(int j = 0; j < v.size(); j++){
+				if(this.zones.elementAt(i).isEqual(v.elementAt(j))){
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
+	
 	public static void main(String []args){
 		
 		Plateau p = new Plateau(143, 143);
@@ -68,6 +107,20 @@ public class Zone_champ_plateau {
 			Vector<Zone_champ_tuile> v3 = new Vector<Zone_champ_tuile>();
 			v3.add(v2.elementAt(i));
 			Zone_champ_plateau z = new Zone_champ_plateau(v3, false);
+			zones.add(z);
+		}
+		
+		int [] cotes22 = {1, 0, 1, 0, 1, 0,1 , 0, 1};
+		Tuile t4 = new Tuile(22, cotes22);
+		
+		p.imbriquer(t4, 73, 73);
+		
+		Vector<Zone_champ_tuile> v4 = All_Zones_champ_tuile.getZones_champ_tuile(22, new Coordonnees(73, 73));
+		
+		for(int i = 0; i < v4.size(); i++){
+			Vector<Zone_champ_tuile> v5 = new Vector<Zone_champ_tuile>();
+			v5.add(v4.elementAt(i));
+			Zone_champ_plateau z = new Zone_champ_plateau(v5, false);
 			zones.add(z);
 		}
 		
@@ -124,6 +177,31 @@ public class Zone_champ_plateau {
 		
 		System.out.println(s);
 		
+		System.out.println("APRES FUSION : ");
+		
+		//Fusion des zones
+		zones = All_Zones_champ_tuile.fusion(zones);
+		
+		//Vérification
+		s = "";
+		for(int i = 0; i < zones.size(); i++){
+			s += "zone : " + i + "\n";
+			Vector<Zone_champ_tuile> zone_champ_plateau = zones.elementAt(i).getZones();
+			for(int j = 0; j < zone_champ_plateau.size(); j++){
+				s += "Tuile : " + zone_champ_plateau.elementAt(j).getC().getX() + " " + 
+				zone_champ_plateau.elementAt(j).getC().getY() + " ";
+				
+				s += "indices : ";
+				Vector<Integer> indices = zone_champ_plateau.elementAt(j).getIndices();
+				for(int k = 0; k < indices.size(); k++){
+					s += indices.elementAt(k) + " ";
+				}
+				
+				s += "\n";
+			}
+		}
+		
+		System.out.println(s);
 	}
 	
 }

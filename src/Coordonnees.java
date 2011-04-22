@@ -22,4 +22,8 @@ public class Coordonnees{
 	public void setY(int y) {
 		this.y = y;
 	}
+	
+	public boolean isEqual(Coordonnees c){
+		return (c.getX() == this.x && c.getY() == this.y);
+	}
 }
