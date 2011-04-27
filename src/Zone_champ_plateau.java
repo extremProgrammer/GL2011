@@ -86,9 +86,13 @@ public class Zone_champ_plateau {
 		
 		p.imbriquer(t, 72, 72);
 		
+		//On récupère les zones de la nouvelle tuile
 		Vector<Zone_champ_tuile> v = All_Zones_champ_tuile.getZones_champ_tuile(17, new Coordonnees(72, 72));
+		
+		//Création du vecteur qui contiendra toutes les zones champ du plateau
 		Vector<Zone_champ_plateau> zones = new Vector<Zone_champ_plateau>();
 		
+		//Pour la première tuile on crée autant de zone_champ_plateau qu'elle contient de zone_champ_tuile
 		for(int i = 0; i < v.size(); i++){
 			Vector<Zone_champ_tuile> v2 = new Vector<Zone_champ_tuile>();
 			v2.add(v.elementAt(i));

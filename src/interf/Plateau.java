@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -15,12 +16,12 @@ import javax.swing.JScrollPane;
 
 public class Plateau extends JPanel{
 	
-	JLabel [][]plateau;
+	Tuile [][]plateau;
 	GridBagConstraints c;
 	
 	public Plateau(int nb_tuiles, String fichier_image1){
 		
-		JLabel image;
+		Tuile tuile;
 		
 		ImageIcon icone = new ImageIcon(fichier_image1);
 		
@@ -38,7 +39,7 @@ public class Plateau extends JPanel{
 		//Nombre max de tuiles sur une ligne/colonne
 		int nb_max = 2*nb_tuiles-1;
 		
-		plateau = new JLabel[nb_max][nb_max];
+		plateau = new Tuile[nb_max][nb_max];
 		
 		for(int i = 0; i < plateau.length; i++){
 			for(int j = 0; j < plateau[i].length; j++){
@@ -47,18 +48,16 @@ public class Plateau extends JPanel{
 				
 				//On pose la première tuile au milieu en position (nb_tuiles, nb_tuiles)
 				if(c.gridx == nb_tuiles && c.gridy == nb_tuiles){
-					image = new JLabel(new ImageIcon(fichier_image1));
+					tuile = new Tuile(new ImageIcon(fichier_image1));
 				} 
 				
 				//Pour le reste des tuiles on remplit de blanc
 				else {
-					image = new JLabel();
-					image.setPreferredSize(new Dimension(icone.getIconWidth(), icone.getIconHeight()));
-					image.setBackground(Color.WHITE);
+					tuile = new Tuile(icone.getIconWidth(), icone.getIconHeight());
 				}
 				
-				this.add(image, c);
-				plateau[i][j] = image;
+				this.add(tuile, c);
+				plateau[i][j] = tuile;
 			}
 		}
 		
@@ -66,7 +65,7 @@ public class Plateau extends JPanel{
 	
 	public void setImageTuile(String fichier_image, int ligne, int colonne){
 		ImageIcon icone = new ImageIcon(fichier_image);
-		plateau[ligne][colonne].setIcon(icone);	
+		plateau[ligne][colonne].setImage(icone);	
 	}
 	
 	//Crée une bordure rouge pour désigner une position possible pour poser une tuile
