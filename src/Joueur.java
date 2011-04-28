@@ -47,7 +47,7 @@ public class Joueur {
 	}
 	
 	public void piocher_tuile(Deck d){
-		this.t = d.piocher();;
+		this.t = d.piocher();
 		
 	}
 	
@@ -57,6 +57,7 @@ public class Joueur {
 	
 	public void poser_tuile(Tuile t, Plateau p, int positionX, int positionY){
 		p.imbriquer(t, positionX, positionY);
+		this.t=null;
 	}
 	
 	public void poser_pion(Tuile t, Plateau p, int positionX, int positionY, int c){

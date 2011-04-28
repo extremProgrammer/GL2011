@@ -2,7 +2,7 @@
 public class Tuile {
 	
 	/* 
-	 * Indices des c�t�s et centre:
+	 * Indices des cotes et centre:
 	 * 0 : Nord
 	 * 1 : NE
 	 * 2 : Est
@@ -13,7 +13,7 @@ public class Tuile {
 	 * 7 : NO
 	 * 8 : Centre
 	 * 
-	 * Types de c�t�s et centre: 
+	 * Types de cotess et centre: 
 	 * 0 : Champ
 	 * 1 : chemin
 	 * 2 : ville
@@ -25,6 +25,7 @@ public class Tuile {
 	Pion []pions;
 	boolean pion;
 	boolean blason;
+	
 	
 	public Tuile(){
 		this.cotes = new int[9];
@@ -111,6 +112,37 @@ public class Tuile {
 	
 	public void inserer_pion(int c, Pion p){
 		this.pions[c]=p;
+	}
+	
+	public boolean is_carrefour(){
+		int nbchemin=0;
+		for(int i=0; i<8; i+=2){
+			if(this.cotes[i]==1)
+				nbchemin++;
+		}
+		if(this.cotes[8]==1 && nbchemin>2)
+			return true;
+		return false;
+	}
+	
+	public boolean is_route(){
+		int nbchemin=0;
+		for(int i=0; i<8; i+=2){
+			if(this.cotes[i]==1)
+				nbchemin++;
+		}
+		if(nbchemin==2)
+			return true;
+		return false;
+	}
+	
+	public boolean fin_route(){
+		int nbchemin=0;
+		for(int i=0; i<8; i+=2){
+			if(this.cotes[i]==1)
+				nbchemin++;
+		}
+		return nbchemin<2;
 	}
 	
 }

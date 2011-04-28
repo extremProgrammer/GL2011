@@ -17,7 +17,7 @@ public class Deck {
 		//Nord, Est, Sud, Ouest, Centre
 		//* 0 : Champ, 1 : chemin, 2 : ville , 3 : abbaye
 
-		int [] cotes1 = {0, 0, 0, 0, 1, 0, 1, 1, 1};
+		int [] cotes1 = {0, 0, 0, 0, 1, 0, 1, 0, 1};
 		Tuile t = new Tuile(1, cotes1);
 		for(int i=0; i<9; i++)
 			deck.add(t);

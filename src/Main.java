@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Vector;
 
 
 
@@ -23,7 +24,7 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Deck d = new Deck();
+		/*Deck d = new Deck();
 		d.initialisation();
 		System.out.println(d.size());
 		System.out.println(d.deck.elementAt(0).cotes[0]);
@@ -35,7 +36,13 @@ public class Main {
 		
 		Jeu j = new Jeu();
 		j.initialisation();
-		System.out.println(j.tab[0].pseudo+" "+j.tab[1].pseudo);
+		System.out.println(j.joueur[0].pseudo+" "+j.joueur[1].pseudo);*/
+		
+		
+		/* LANCEMENT DU JEU */
+		Jeu j = new Jeu();
+		j.initialisation();
+		j.launch();
 	}
 
 }
