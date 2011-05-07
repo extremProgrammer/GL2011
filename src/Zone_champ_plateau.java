@@ -76,7 +76,7 @@ public class Zone_champ_plateau {
 		return false;
 	}
 	
-	public static void main(String []args){
+	/*public static void main(String []args){
 		
 		Plateau p = new Plateau(143, 143);
 		
@@ -206,6 +206,6 @@ public class Zone_champ_plateau {
 		}
 		
 		System.out.println(s);
-	}
+	}*/
 	
 }

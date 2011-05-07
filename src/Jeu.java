@@ -12,6 +12,7 @@ public class Jeu {
 	Joueur [] joueur;
 	Vector<ZoneRoute>zonesR;
 	Vector<ZoneVille>zonesV;
+	Vector<Zone_champ_plateau> zonesC;
 	int tour;//savoir qui doit jouer, int compris entre 0 et NBjoueur
 	
 	public Jeu(){
@@ -19,6 +20,7 @@ public class Jeu {
 		this.deck = new Deck();
 		this.zonesR = new Vector<ZoneRoute>();
 		this.zonesV = new Vector<ZoneVille>();
+		this.zonesC = new Vector<Zone_champ_plateau>();
 	}
 		
 	 static public int readInt(){
@@ -49,7 +51,7 @@ public class Jeu {
 	 
 	public void initialisation(){
 		/*          Mise en place de la premiere tuile         */
-		/*Initialiser les zones par rapport � la premiere tuile*/
+		/*Initialiser les zones par rapport � la premiere tuile*/
 		int [] cotes17 = {2, 0, 1, 0, 0, 0, 1, 0, 1};
 		Tuile t = new Tuile(17, cotes17);
 		p.imbriquer(t, 71, 71);
@@ -72,6 +74,20 @@ public class Jeu {
 		this.zonesR.add(new ZoneRoute());
 		this.zonesV.elementAt(0).insertTuile(t, 71, 71, p);
 		this.zonesR.elementAt(0).insertTuile(t, 71, 71);
+		
+		//Zone_champ_tuile de la première tuile
+		Vector<Zone_champ_tuile> v = All_Zones_champ_tuile.getZones_champ_tuile(17, new Coordonnees(71, 71));
+		
+		//Pour la première tuile on crée autant de zone_champ_plateau qu'elle contient de zone_champ_tuile
+		for(int i = 0; i < v.size(); i++){
+			Vector<Zone_champ_tuile> v2 = new Vector<Zone_champ_tuile>();
+			v2.add(v.elementAt(i));
+			Zone_champ_plateau z = new Zone_champ_plateau(v2, false);
+			this.zonesC.add(z);
+		}
+		
+		// Verification zones champ du plateau
+		System.out.println(verification_zones_champ());
 	}
 	
 	public void prochainJoueur(){
@@ -102,7 +118,7 @@ public class Jeu {
 	}
 	
 	public void connecter(Tuile t, int positionX,int positionY, int pX2, int pY2, int p1, int p2){
-		//connecter que si cotes connect�s de meme types
+		//connecter que si cotes connect�s de meme types
 		for(int i=0; i<zonesR.size(); i++){//parcours des zones
 			for(int j=0; j<zonesR.elementAt(i).chemin.size(); j++){//parcours des tuiles dans la zone
 				if(zonesR.elementAt(i).chemin.elementAt(j).getX()==pX2 && zonesR.elementAt(i).chemin.elementAt(j).getY()==pY2 && p.plateau[pX2][pY2].cotes[p1]==p.plateau[positionX][positionY].cotes[p2] && p.plateau[positionX][positionY].cotes[p2]==1){
@@ -132,6 +148,29 @@ public class Jeu {
 				System.out.print("|");
 			
 		}
+	}
+	
+	public String verification_zones_champ(){
+		//Vérification
+		String s = "";
+		for(int i = 0; i < this.zonesC.size(); i++){
+			s += "zone : " + i + "\n";
+			Vector<Zone_champ_tuile> zone_champ_plateau = this.zonesC.elementAt(i).getZones();
+			for(int j = 0; j < zone_champ_plateau.size(); j++){
+				s += "Tuile : " + zone_champ_plateau.elementAt(j).getC().getX() + " " + 
+				zone_champ_plateau.elementAt(j).getC().getY() + " ";
+				
+				s += "indices : ";
+				Vector<Integer> indices = zone_champ_plateau.elementAt(j).getIndices();
+				for(int k = 0; k < indices.size(); k++){
+					s += indices.elementAt(k) + " ";
+				}
+				
+				s += "\n";
+			}
+		}
+		
+		return s;
 	}
 	
 	/*************************************************************************************/
@@ -168,6 +207,18 @@ public class Jeu {
 				System.out.println("Connecte a l'ouest");
 				connecter(t, positionX, positionY, positionX-1, positionY, 2, 6);
 			}
+			
+			/* Gestion zones champs */
+			
+			/* Fusion des Zone_champ_tuile de la nouvelle tuile */
+			All_Zones_champ_tuile.all_fusions(p, this.zonesC, t.getID(), positionX, positionY);
+			
+			// Fusion des Zone_champ_plateau pour éviter les doublons
+			this.zonesC = All_Zones_champ_tuile.fusion(this.zonesC);
+			
+			// Verification zones champ du plateau
+			System.out.println(verification_zones_champ());
+			
 			prochainJoueur();
 		}
 		//p.imbriquer(t3, 0, 0); //t3, positionX, positionY;

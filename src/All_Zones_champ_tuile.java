@@ -336,12 +336,8 @@ public class All_Zones_champ_tuile {
 	
 	//Ajoute les zones de la nouvelle tuile aux zones du plateau déjà existantes
 	public static Vector<Zone_champ_plateau> all_fusions(Plateau p, Vector<Zone_champ_plateau> zones, int id_tuile, int x, int y){
-		Vector<Zone_champ_tuile> v = All_Zones_champ_tuile.getZones_champ_tuile(id_tuile, new Coordonnees(73, 72));
 		
-		System.out.println("Tuile au nord : " + p.isTuileN(x, y));
-		System.out.println("Tuile à l'est : " + p.isTuileE(x, y));
-		System.out.println("Tuile au sud : " + p.isTuileS(x, y));
-		System.out.println("Tuile à l'ouest : " + p.isTuileO(x, y));
+		Vector<Zone_champ_tuile> v = All_Zones_champ_tuile.getZones_champ_tuile(id_tuile, new Coordonnees(x, y));
 		
 		if(p.isTuileN(x, y)){
 			//On parcourt toutes les zones champ du plateau
@@ -470,6 +466,32 @@ public class All_Zones_champ_tuile {
 					}
 				}					
 			}
+		}
+		
+		/* Si des zone_champ_tuile n'ont pas été intégré dans des zone_champ_plateau, 
+		 * on en fait des nouvelles zone_champ_plateau
+		 */
+		
+		// On parcourt les zone_champ_tuile de la nouvelle tuile
+		for(int i = 0; i < v.size(); i++){
+			boolean contient = false;
+			
+			// On parcourt les zone_champ_plateau et on regarde si elles contiennent une des zone_champ_tuile
+			for(int j = 0; j < zones.size(); j++){
+				Vector <Zone_champ_tuile> v2 = zones.elementAt(j).getZones();
+				if(v2.contains(v.elementAt(i))){
+					contient = true;
+					break;
+				}
+			}
+			
+			// Si elles contiennent pas la zone_champ_tuile on en fait une zone_champ_plateau
+			if(!contient){
+				Vector <Zone_champ_tuile> v2 = new Vector <Zone_champ_tuile>();
+				v2.add(v.elementAt(i));
+				zones.add(new Zone_champ_plateau(v2, false));
+			}
+			
 		}
 		
 		return zones;

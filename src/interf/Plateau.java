@@ -19,11 +19,8 @@ public class Plateau extends JPanel{
 	Tuile [][]plateau;
 	GridBagConstraints c;
 	
-	public Plateau(int nb_tuiles, String fichier_image1){
-		
+	public Plateau(int nb_tuiles, int tile_width, int tile_height){		
 		Tuile tuile;
-		
-		ImageIcon icone = new ImageIcon(fichier_image1);
 		
 		this.setBackground(Color.WHITE);
 		this.setLayout(new GridBagLayout());
@@ -46,15 +43,8 @@ public class Plateau extends JPanel{
 				c.gridx = j;
 				c.gridy = i;
 				
-				//On pose la première tuile au milieu en position (nb_tuiles, nb_tuiles)
-				if(c.gridx == nb_tuiles && c.gridy == nb_tuiles){
-					tuile = new Tuile(new ImageIcon(fichier_image1));
-				} 
-				
-				//Pour le reste des tuiles on remplit de blanc
-				else {
-					tuile = new Tuile(icone.getIconWidth(), icone.getIconHeight());
-				}
+				// On remplit de blanc
+				tuile = new Tuile(tile_width, tile_height);
 				
 				this.add(tuile, c);
 				plateau[i][j] = tuile;
