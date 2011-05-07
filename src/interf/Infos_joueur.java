@@ -19,7 +19,7 @@ public class Infos_joueur extends JPanel{
 	
 	public Infos_joueur(Color c, String nom_joueur) {
 		
-		this.nb_pions = 10; 
+		this.nb_pions = 10;   
 		this.nb_points = 0;
 		
 		this.setBackground(Color.WHITE);
